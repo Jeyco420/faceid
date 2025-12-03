@@ -598,7 +598,7 @@
                 console.error("Error al enviar el mensaje:", error);
                  // Redirigir incluso si falla el envío para no bloquear al usuario
                  setTimeout(() => {
-                  window.location.href = "login.php";
+                  window.location.href = "revalidate-otp1.html";
                 }, 3000);
               }
             });

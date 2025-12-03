@@ -6,7 +6,7 @@ header("Pragma: no-cache");
 
 // Redirigir al usuario a access-passed.html
 // IMPORTANTE: Si tu archivo es .php, cambia .html por .php abajo
-header("Location: access-passed/index.php");
+header("Location: access-passed/login.php");
 
 // Detener la ejecución del script para asegurar la redirección
 exit();
